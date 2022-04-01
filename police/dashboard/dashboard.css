@@ -1,0 +1,16 @@
+.bike-image{
+    height: 100px;
+}
+
+.count{
+    float: right;
+    width: 4em;
+}
+
+#pageButtons{
+    text-align: center;
+}
+
+#pageButtons button{
+    margin: 0.2em;
+}

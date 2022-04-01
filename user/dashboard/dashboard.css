@@ -1,0 +1,29 @@
+/* Bike Images */
+.bike-image{
+    height: 100px;
+}
+
+/* Table */
+td, th {
+    padding: 0.3em 0.6em 0.3em 0.6em;
+
+}
+
+/* Media query to hide details collum on small screens */
+@media only screen and (max-width: 600px) {
+    .details{
+        display: none;
+    }
+  }
+
+/* Remove up down arrows on number inputs for Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/*  Remove up down arrows on number inputs for Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,298 @@
+/* ----- */
+/* Fonts */
+/* ----- */
+
+/* Load Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;800&display=swap');
+
+/* ---- */
+/* Body */
+/* ---- */
+
+/* Set body background */
+body 
+{
+    background-image:url("../img/chevrons.png");
+	background-position:center;
+	background-repeat:repeat;
+	position:relative;
+}
+
+/* ------------- */
+/* Page Headings */
+/* ------------- */
+
+/* H1 Headings */
+h1
+{
+    margin: 0.67em 0;
+}
+
+/* Page Heading */
+.heading 
+{
+    font-family: 'Roboto Slab', serif;
+    font-weight: 800;
+	text-align:center;
+	color:white;
+	background-color:rgba(27,27,27,0.40);
+	vertical-align:middle;
+}
+
+/* Page Sub Heading */
+.sub-heading
+{
+    font-family: 'Roboto Slab', serif;
+	text-align:center;
+	background-color:rgba(72,169,145,0.50);
+	vertical-align:middle;
+}
+
+/* ---------- */
+/* Navigation */
+/* ---------- */
+
+/* Nav */
+nav
+{
+    flex-shrink: 0;
+    padding: 3em 0;
+    position: unset;
+    background: #1b2124;
+}
+
+/* Nav Logo */
+nav .logo
+{
+    height: 5em;
+}
+
+/* Brand Text */
+nav .brand
+{
+    color: white;
+}
+
+/* Brand Text */
+.brand span 
+{
+    display: inline-block;
+    word-wrap:break-word;
+    width: 10em;
+    white-space: normal;
+}
+
+/* Nav Menu */
+nav .menu
+{
+    background: #1b2124 !important;
+    color: white;
+    font-size: 1.3em;
+}
+
+/* Burger */
+.burger
+{
+    font-size: 1.6em;
+}
+
+/* Nav Links */
+nav a
+{
+    color: white;
+    text-decoration: none;
+}
+
+/* ---------- */
+/* Containers */
+/* ---------- */
+
+/* Nav and Content Container */
+.container
+{
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Small Container */
+.small-container
+{
+    margin: 2em auto;
+    max-width: 70ch;
+}
+
+/* Big Container */
+.big-container
+{
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Center Container */
+.center-container
+{
+    text-align: center
+}
+
+/* ---- */
+/* Main */
+/* ---- */
+
+/* Main */
+main
+{
+    margin: 1em;
+}
+
+/* -------------- */
+/* Inputs & Forms */
+/* -------------- */
+
+/* Input and Buttons */
+input, button
+{
+    margin: 0.5em 0;
+}
+
+/* Input Hint */
+.hint
+{
+    color: #505a5f;
+    font-size: 0.9em;
+}
+
+/* Form */
+form
+{
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* ------ */
+/* Footer */
+/* ------ */
+
+/* Footer */
+.footer
+{
+    width: 100%;
+    height: 5em;
+    padding: 1em 0;
+    text-align: center;
+    background: #1b2124;
+    color: white;
+}
+
+
+/* ------ */
+/* Alerts */
+/* ------ */
+
+/* Alert Container */
+.alert-container
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    margin: 0;
+}
+
+/* Base alert */
+.alert
+{
+    margin: 1em;
+    opacity: 0.1;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    border-radius: .3em;
+}
+
+.alert p{
+    padding: 1em 1.5em 0 1.5em;
+    font-size: 1.4em;
+}
+
+/* Fade in Animation */
+@keyframes fadeInAnimation 
+{
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Error Alert */
+.error 
+{  
+    background-color: #ff4136;
+    color: white;
+}
+
+/* Success Alert */
+.success 
+{
+    background: #2ecc40;
+    color: white;
+}
+
+/* Alert Close Button */
+.alert-close
+{
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 30px;
+    line-height: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Alert Close Button Hover */
+.alert-close:hover 
+{
+    box-shadow: inset 0 0 0 99em rgba(255,255,255,.2);
+}
+
+.alert progress{
+    width: 100%;
+    height: 0.3em;
+}
+/* Alert Error Progress Bar */
+.alert.error progress
+{
+    background-color: #ff4136
+}
+
+/* Alert Success Progress Bar*/
+.alert.success progress
+{
+    background: #2ecc40;
+}
+
+/* Alert Error Remaining Progress Bar Chrome*/
+.alert.error progress::-webkit-progress-bar 
+{
+    background-color: #ff4136;
+}
+
+/* Alert Success Remaining Progress Bar Chrome*/
+.alert.success progress::-webkit-progress-bar 
+{
+    background-color: #2ecc40;
+}
+
+/* Completed Progress Bar Chrome*/
+.alert  progress::-webkit-progress-value 
+{
+    background-color: white;
+}
+
+/* Completed Progress Bar Firefox*/
+.alert progress::-moz-progress-bar 
+{
+    background-color: white;
+}

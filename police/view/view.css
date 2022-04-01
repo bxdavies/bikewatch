@@ -1,0 +1,36 @@
+tr:nth-child(2n){
+    background: unset;
+}
+.stack{
+    width: 10em;
+}
+.police{
+    color: #039;
+    font-size: 1.5em;
+}
+.role{
+    text-decoration: none;
+    text-align: right;
+    float: right;
+    font-style: normal;
+    text-transform: capitalize;
+}
+
+.comments-container{
+    margin: auto;
+    max-width: 800px;
+}
+
+.bike-image{
+    height: 100px;
+}
+
+td, th {
+    padding: 0.3em 0.6em 0.3em 0.6em;
+
+}
+@media only screen and (max-width: 600px) {
+    .details{
+        display: none;
+    }
+  }

@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <?php 
-    // Define page variables here. These will affect the page title, heading and sub heading
-    $pageTitle = "Police - Search";
-    $pageHeading = "Search"; 
-    $pageSubHeading = "Search crimes, users or bikes";
 
-    include("../../functions/alerts.php"); // This loads a function for creating alerts 
-    include("../../functions/database.php"); // This load the database the vairable you will neeed is $DBConnection
-	
+    // Set page title, heading and sub heading
+    $pageTitle = 'Police - Search';
+    $pageHeading = 'Search'; 
+    $pageSubHeading = 'Search crimes, users or bikes';
+
+    // Include the alerts function, database connection and error handler
+    include('../../functions/alerts.php');
+    include('../../functions/database.php');
+    include('../../functions/errors.php');
+
+    // Start session
 	session_start();
 
-    if ($_SESSION['role'] != "police")
+    // If session role is not set to police then redirect to login page
+    if ($_SESSION['role'] != 'police')
     {
-        header("Location: ../../login/login.php");
+        header('Location: ../../login/login.php');
     }
 
-    // Set User ID
+    // Assign session id to userID variable
     $userID = $_SESSION['id'];
 
 ?>
 <html>
 <head>
     <!-- Head Content -->
-    <?php include("../../templates/head.php");?>
+    <?php include('../../templates/head.php');?>
 
-    <!-- Page Specifc CSS goes here -->
     <link rel="stylesheet" href="search.css">
 </head>
 <body>
 
-    <?php include("../../templates/alerts.php");?>
+    <?php include('../../templates/alerts.php');?>
     
     <!-- Page Container -->
     <div class="container">
 
-        <!-- Page Naviagtion -->
-        <?php include("../../templates/navigation.php"); ?>
+        <!-- Page Navigation -->
+        <?php include('../../templates/navigation.php'); ?>
 
         <!-- Page Header -->
-        <?php include("../../templates/header.php");?>
+        <?php include('../../templates/header.php');?>
 
         <!-- Page Content -->
         <main>
-            <div class="small-conatiner">
+            <div class="small-container">
                 <h3> Easy Search </h3>
                     <label for="etable"> What are you searching for?</label>
                     <select name="etable" id="etable">
@@ -78,7 +82,7 @@
     </div>
                         
     <!-- Page Footer -->
-    <?php include("../../templates/footer.php");?>
+    <?php include('../../templates/footer.php');?>
     <script src="search.js"></script>
 
 </body>

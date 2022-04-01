@@ -2,9 +2,9 @@
 <?php 
 
     // Set page title, heading and subheading
-    $pageTitle = 'Account Verifcation';
-    $pageHeading = 'Account Verifcation'; 
-    $pageSubHeading = 'Account Verifcation Page';
+    $pageTitle = 'Account Verification';
+    $pageHeading = 'Account Verification'; 
+    $pageSubHeading = 'Account Verification Page';
     
     // Include the alerts function, database connection and error handler
     include('../../functions/alerts.php');
@@ -24,12 +24,12 @@
 
         if($DBGetVerificationCode->execute())
         {
-            $verificationCodeinDB=$DBGetVerificationCode->get_result();
-            $verificationCodeinDB=$verificationCodeinDB->fetch_assoc()['verification_code'];
+            $verificationCodeInDB=$DBGetVerificationCode->get_result();
+            $verificationCodeInDB=$verificationCodeInDB->fetch_assoc()['verification_code'];
             $DBGetVerificationCode->close();
             
             // If verification code in URL matches the verification code in the database set user to verified
-            if($verificationCodeinDB == $verificationCode){
+            if($verificationCodeInDB == $verificationCode){
 
                 // Set user to verified
                 $DBSetVerified = $DBConnection->prepare("UPDATE `user` SET `verified` = 1 WHERE `id` = ?");
@@ -51,37 +51,37 @@
             }
             // Else display error message
             else{
-                createAlert('error', 'The provided verification code does not match the verifaction code in the database!');
+                createAlert('error', 'The provided verification code does not match the verification code in the database!');
             }
         }
         // Else display error message and log
         else{
-            createAlert('error', 'Failed to get verifcation code from the database!');
-            errorHandler(1, "Failed to get verifcation code from the database!: {$DBSetVerified->error}");
+            createAlert('error', 'Failed to get verification code from the database!');
+            errorHandler(1, "Failed to get verification code from the database!: {$DBSetVerified->error}");
         }
     }
     // Else display error message
     else{
-        createAlert('error', 'Verifcation code or user id missing from URL pramaters!');
+        createAlert('error', 'Verification code or user id missing from URL parameters!');
     }
 
 ?>
 <html>
 <head>
     <!-- Head Content -->
-    <?php include("../../templates/head.php");?>
+    <?php include('../../templates/head.php');?>
 </head>
 <body>
 
-    <?php include("../../templates/alerts.php");?>
+    <?php include('../../templates/alerts.php');?>
 
     <div class="container">
 
-        <!-- Page Naviagtion -->
-        <?php include("../../templates/navigation.php"); ?>
+        <!-- Page Navigation -->
+        <?php include('../../templates/navigation.php'); ?>
 
         <!-- Page Header -->
-        <?php include("../../templates/header.php");?>
+        <?php include('../../templates/header.php');?>
 
         <!-- Page Content -->
         <main>
@@ -90,7 +90,7 @@
             
     </div>
     <!-- Page Footer -->
-    <?php include("../../templates/footer.php");?>
+    <?php include('../../templates/footer.php');?>
 
 </body>
 </html>

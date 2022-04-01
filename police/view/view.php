@@ -9,9 +9,9 @@
     // Start session
     session_start();
 
-      // If session role is not set to police then redirect to login page
-    if ($_SESSION['role'] != "police") {
-        header("Location: ../../login/login.php");
+    // If session role is not set to police then redirect to login page
+    if ($_SESSION['role'] != 'police') {
+        header('Location: ../../login/login.php');
     }
 
     // Check ID exists
@@ -19,27 +19,27 @@
         createAlert('error', 'No crime ID provided!');
     }
 
-    // Assign ID and type to vairables
+    // Assign ID and type to variables
     $ID = intval($_GET['id']);
     $type = $_GET['type'];
 
     // Set page title, heading and subheading
-    $hummanType = ucfirst($type);
-    $pageTitle = "Police - {$hummanType} View";
-    $pageHeading = "{$hummanType} View ";
-    $pageSubHeading = "You are viewing {$hummanType}: {$ID}";
+    $humanType = ucfirst($type);
+    $pageTitle = 'Police - {$humanType} View';
+    $pageHeading = '{$humanType} View ';
+    $pageSubHeading = 'You are viewing {$humanType}: {$ID}';
 
     // Assign session id to userID variable
     $userID = $_SESSION['id'];
 
     // Set Upload Folder
-    $uploadFolder = "../../uploads/";
+    $uploadFolder = '../../uploads/';
 
     // If save is in post data then add comment to the database
-    if (isset($_POST["save"])) {
+    if (isset($_POST['save'])) {
 
         // Assign post data to variables
-        $comment = $_POST["comment"];
+        $comment = $_POST['comment'];
 
         // If visibility is set then set public to true
         if (isset($_POST['visibility'])) {
@@ -69,7 +69,6 @@
     <!-- Head Content -->
     <?php include("../../templates/head.php"); ?>
 
-    <!-- Page Specifc CSS goes here -->
     <link rel="stylesheet" href="view.css">
 </head>
 
@@ -80,7 +79,7 @@
     <!-- Page Container -->
     <div class="container">
 
-        <!-- Page Naviagtion -->
+        <!-- Page Navigation -->
         <?php include("../../templates/navigation.php"); ?>
 
         <!-- Page Header -->

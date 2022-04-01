@@ -80,22 +80,22 @@
 
 <head>
     <!-- Head Content -->
-    <?php include("../../templates/head.php"); ?>
+    <?php include('../../templates/head.php'); ?>
     <link rel="stylesheet" href="register.css">
 </head>
 
 <body>
 
-    <!-- Alert conatiner -->
-    <?php include("../../templates/alerts.php"); ?>
+    <!-- Alert Container -->
+    <?php include('../../templates/alerts.php'); ?>
 
     <div class="container">
 
-        <!-- Page Naviagtion -->
-        <?php include("../../templates/navigation.php"); ?>
+        <!-- Page Navigation -->
+        <?php include('../../templates/navigation.php'); ?>
 
         <!-- Page Header -->
-        <?php include("../../templates/header.php"); ?>
+        <?php include('../../templates/header.php'); ?>
 
         <!-- Page Content -->
         <main>
@@ -183,7 +183,7 @@
                             <option>Bangladeshi</option>
                             <option>Indian</option>
                             <option>Pakistani</option>
-                            <optio>Any other Asian background</option>
+                            <option>Any other Asian background</option>
                         </optgroup>
 
                         <optgroup label="Black or Black British">
@@ -246,8 +246,8 @@
                     <label for="postcode"> Postcode </label>
                     <input id="postcode" name="postcode" type="text" required>
 
-                    <!-- Conact Infomation -->
-                    <h3> Conact Information </h3>
+                    <!-- Contact Information -->
+                    <h3> Contact Information </h3>
 
                     <label for="emailAddress"> Email </label>
                     <input id="emailAddress" name="emailAddress" type="email" placeholder="john.doe@example.com" required>

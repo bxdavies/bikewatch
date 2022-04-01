@@ -1,13 +1,17 @@
-/* ----- */
-/* Fonts */
-/* ----- */
+
+/*===================
+=       Fonts       =
+====================*/
 
 /* Load Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;800&display=swap');
 
-/* ---- */
-/* Body */
-/* ---- */
+/*==== End of Fonts ====*/
+
+
+/*==================
+=       Body       =
+==================*/
 
 /* Set body background */
 body 
@@ -18,9 +22,13 @@ body
 	position:relative;
 }
 
-/* ------------- */
-/* Page Headings */
-/* ------------- */
+/*==== End of Body ====*/
+
+
+/*======================
+=       Headings       =
+======================*/
+
 
 /* H1 Headings */
 h1
@@ -48,9 +56,12 @@ h1
 	vertical-align:middle;
 }
 
-/* ---------- */
-/* Navigation */
-/* ---------- */
+/*==== End of Headings ====*/
+
+
+/*=================
+=       Nav       =
+=================*/
 
 /* Nav */
 nav
@@ -103,9 +114,12 @@ nav a
     text-decoration: none;
 }
 
-/* ---------- */
-/* Containers */
-/* ---------- */
+/*==== End of Nav ====*/
+
+
+/*========================
+=       Containers       =
+========================*/
 
 /* Nav and Content Container */
 .container
@@ -134,9 +148,12 @@ nav a
     text-align: center
 }
 
-/* ---- */
-/* Main */
-/* ---- */
+/*==== End of Containers ====*/
+
+
+/*==================
+=       Main       =
+==================*/
 
 /* Main */
 main
@@ -144,9 +161,12 @@ main
     margin: 1em;
 }
 
-/* -------------- */
-/* Inputs & Forms */
-/* -------------- */
+/*==== End of Main ====*/
+
+
+/*============================
+=       Inputs & Forms       =
+============================*/
 
 /* Input and Buttons */
 input, button
@@ -167,9 +187,12 @@ form
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* ------ */
-/* Footer */
-/* ------ */
+/*==== End of Inputs & Forms ====*/
+
+
+/*====================
+=       Footer       =
+====================*/
 
 /* Footer */
 .footer
@@ -182,10 +205,12 @@ form
     color: white;
 }
 
+/*==== End of Footer ====*/
 
-/* ------ */
-/* Alerts */
-/* ------ */
+
+/*====================
+=       Alerts       =
+====================*/
 
 /* Alert Container */
 .alert-container
@@ -296,3 +321,5 @@ form
 {
     background-color: white;
 }
+
+/*==== End of Alerts ====*/

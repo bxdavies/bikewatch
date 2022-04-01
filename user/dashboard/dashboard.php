@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-    // Set page title, heading and subheading
+    // Set page title, heading and sub heading
     $pageTitle = 'Home';
     $pageHeading = 'Welcome to your BikeWatch account';
     $pageSubHeading = 'Register a new bike and/or report a stolen bike';
@@ -132,22 +132,21 @@
 
 <body>
 
-    <!-- Alert conatiner -->
-    <?php include("../../templates/alerts.php"); ?>
+    <!-- Alert container -->
+    <?php include('../../templates/alerts.php'); ?>
 
     <div class="container">
 
-        <!-- Page naviagtion -->
-        <?php include("../../templates/navigation.php"); ?>
+        <!-- Page navigation -->
+        <?php include('../../templates/navigation.php'); ?>
 
         <!-- Page header -->
-        <?php include("../../templates/header.php"); ?>
+        <?php include('../../templates/header.php'); ?>
 
         <!-- Page content -->
         <main>
             <div class="big-container">
-                <div class="flex one two-12        // Close 
-        $DBAddBike->close();00">
+                <div class="flex one two-12">
 
                     <!-- Bikes table -->
                     <div class="full two-third-1200" style="overflow-x:auto;">
@@ -280,7 +279,7 @@
     </div>
 
     <!-- Page Footer -->
-    <?php include("../../templates/footer.php"); ?>
+    <?php include('../../templates/footer.php'); ?>
     
     <!-- Javascript -->
     <script type="text/javascript" src="https://chir.ag/projects/ntc/ntc.js"></script>

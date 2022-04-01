@@ -3,10 +3,6 @@
     $pageTitle = "Home";
     $pageHeading = "Welcome to Gloucestershire Constabulary BikeWatch"; 
     $pageSubHeading = "Please Login or Register to add, view or report a new bike";
-
-    include('functions/alerts.php');
-
-    createAlert('error', 'This is a test alert from PHP', '');
 ?>
 <html>
 <head>
@@ -15,8 +11,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Alert container -->
-    <?php include("templates/alerts.php"); ?>
 
     <!-- Page Container -->
     <div class="container">
@@ -30,9 +24,7 @@
         <!-- Page Content -->
         <main>
             <div class="small-container">
-                <?php 
-                    createAlert('error', 'This is a test alert from PHP', '');
-                ?>
+
                 <a class="button login" href="login/login.php"> Login </a> 
                 <a class="button register" href="user/register/register.php"> Register </a>
 

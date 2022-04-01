@@ -14,7 +14,7 @@
     // Start session
     session_start();
 
-    //  If session role is not set to user then redirect to login page
+    // If session role is not set to user then redirect to login page
     if ($_SESSION['role'] != 'user') {
 
         header('Location: ../../login/login.php');
@@ -132,12 +132,12 @@
 
 <body>
 
-    <!-- Alert container -->
+    <!-- Alert conatiner -->
     <?php include("../../templates/alerts.php"); ?>
 
     <div class="container">
 
-        <!-- Page navigation -->
+        <!-- Page naviagtion -->
         <?php include("../../templates/navigation.php"); ?>
 
         <!-- Page header -->

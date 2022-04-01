@@ -2,7 +2,7 @@
 <?php 
     $pageTitle = "Home";
     $pageHeading = "Welcome to Gloucestershire Constabulary BikeWatch"; 
-    $pageSubHeading = "Please Login or Register to add, view or report a new bike";
+    $pageSubHeading = "Please Login or Register to add, view or report a new bike"
 ?>
 <html>
 <head>
@@ -15,7 +15,7 @@
     <!-- Page Container -->
     <div class="container">
 
-        <!-- Page Navigation -->
+        <!-- Page Naviagtion -->
         <?php include("templates/navigation.php"); ?>
 
         <!-- Page Header -->
@@ -24,7 +24,6 @@
         <!-- Page Content -->
         <main>
             <div class="small-container">
-
                 <a class="button login" href="login/login.php"> Login </a> 
                 <a class="button register" href="user/register/register.php"> Register </a>
 

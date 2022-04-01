@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <?php
 
-    include("../../functions/alerts.php"); // This loads a function for creating alerts 
-    include("../../functions/database.php"); // This load the database the vairable you will neeed is $DBConnection
+    // Include the alerts function, database connection and error handler
+    include('../../functions/alerts.php');
+    include('../../functions/database.php');
+    include('../../functions/errors.php');
 
-    // Start Session
+    // Start session
     session_start();
 
-    // Check if Police is logged in
+      // If session role is not set to police then redirect to login page
     if ($_SESSION['role'] != "police") {
         header("Location: ../../login/login.php");
     }
@@ -21,33 +23,43 @@
     $ID = intval($_GET['id']);
     $type = $_GET['type'];
 
-    // Set Page Title, Heading and Sub Heading
+    // Set page title, heading and subheading
     $hummanType = ucfirst($type);
     $pageTitle = "Police - {$hummanType} View";
     $pageHeading = "{$hummanType} View ";
     $pageSubHeading = "You are viewing {$hummanType}: {$ID}";
 
-    // Set User ID
+    // Assign session id to userID variable
     $userID = $_SESSION['id'];
 
     // Set Upload Folder
     $uploadFolder = "../../uploads/";
 
+    // If save is in post data then add comment to the database
     if (isset($_POST["save"])) {
 
+        // Assign post data to variables
         $comment = $_POST["comment"];
 
+        // If visibility is set then set public to true
         if (isset($_POST['visibility'])) {
-            $insertCommentDB = $DBConnection->prepare("INSERT INTO `comment` (`crime`, `author`, `public`, `comment`) VALUES (?, 1, ?, ?) ");
-        } else {
-            $insertCommentDB = $DBConnection->prepare("INSERT INTO `comment` (`crime`, `author`, `comment`) VALUES (?, ?, ?) ");
+            $DBAddComment = $DBConnection->prepare("INSERT INTO `comment` (`crime`, `author`, `public`, `comment`) VALUES (?, 1, ?, ?) ");
+        } 
+        // Else set public to false
+        else {
+            $DBAddComment = $DBConnection->prepare("INSERT INTO `comment` (`crime`, `author`, `comment`) VALUES (?, ?, ?) ");
         }
-        $insertCommentDB->bind_param('iis', $crimeID, $userID, $comment);
 
-        if ($insertCommentDB->execute()) {
+        $DBAddComment->bind_param('iis', $ID, $userID, $comment);
+        
+        // If record is inserted successfully then alert the user
+        if ($DBAddComment->execute()) {
             createAlert('success', 'Comment Added!');
-        } else {
-            echo "Failed to add record!" . $insertCommentDB->error;
+        } 
+        // Else display error message and log
+        else {
+            createAlert('error', 'Failed to add comment to the database!');
+            errorHandler(1, "Failed to add comment : {$DBAddComment->error}");
         }
     }
 ?>
@@ -95,88 +107,88 @@
             <div class="big-container">
                 <?php
                 if ($type == 'user') {
-                    $userDB = $DBConnection->prepare("SELECT `title`, `first_name`, `last_name`, `dob`, `gender`, `ethnicity`, `address_line_1`, `address_line_2`, `local_authority`, `town`, `postcode`, `mobile_number`, `email_address` FROM `user` WHERE `id` = ?");
-                    $userDB->bind_param('i', $ID);
-                    $userDB->execute();
+                    $DBGetUser = $DBConnection->prepare("SELECT `title`, `first_name`, `last_name`, `dob`, `gender`, `ethnicity`, `address_line_1`, `address_line_2`, `local_authority`, `town`, `postcode`, `mobile_number`, `email_address` FROM `user` WHERE `id` = ?");
+                    $DBGetUser->bind_param('i', $ID);
+                    $DBGetUser->execute();
 
-                    $result = $userDB->get_result();
+                    $result = $DBGetUser->get_result();
                     $user = $result->fetch_assoc();
 
-                    $bikeDB = $DBConnection->prepare("SELECT `bike`.`id`, `bike`.`nickname`, `bike`.`mpn`, `bike`.`brand`, `bike_image`.`image` FROM `bike` INNER JOIN `bike_image` ON `bike`.`id` = `bike_image`.`bike` WHERE `bike`.`user` = ? GROUP BY `bike`.`id`; ");
-                    $bikeDB->bind_param('i', $ID);
-                    $bikeDB->execute();
+                    $DBGetBikes = $DBConnection->prepare("SELECT `bike`.`id`, `bike`.`nickname`, `bike`.`mpn`, `bike`.`brand`, `bike_image`.`image` FROM `bike` INNER JOIN `bike_image` ON `bike`.`id` = `bike_image`.`bike` WHERE `bike`.`user` = ? GROUP BY `bike`.`id`; ");
+                    $DBGetBikes->bind_param('i', $ID);
+                    $DBGetBikes->execute();
 
-                    $bikes = $bikeDB->get_result();
+                    $bikes = $DBGetBikes->get_result();
 
                     include("user.php");
                 } elseif ($type == 'bike') {
-                    $userDB = $DBConnection->prepare("SELECT `user`.`title`, `user`.`first_name`, `user`.`last_name`, `user`.`dob`, `user`.`gender`, `user`.`ethnicity`, `user`.`address_line_1`, `user`.`address_line_2`, `user`.`local_authority`, `user`.`town`, `user`.`postcode`, `user`.`mobile_number`, `user`.`email_address` FROM `bike` INNER JOIN `user` ON `user`.`id` = `bike`.`user` WHERE `bike`.`id` = ?");
-                    $userDB->bind_param('i', $ID);
-                    $userDB->execute();
-                    $result = $userDB->get_result();
+                    $DBGetUser = $DBConnection->prepare("SELECT `user`.`title`, `user`.`first_name`, `user`.`last_name`, `user`.`dob`, `user`.`gender`, `user`.`ethnicity`, `user`.`address_line_1`, `user`.`address_line_2`, `user`.`local_authority`, `user`.`town`, `user`.`postcode`, `user`.`mobile_number`, `user`.`email_address` FROM `bike` INNER JOIN `user` ON `user`.`id` = `bike`.`user` WHERE `bike`.`id` = ?");
+                    $DBGetUser->bind_param('i', $ID);
+                    $DBGetUser->execute();
+                    $result = $DBGetUser->get_result();
                     $user = $result->fetch_assoc();
 
-                    $bikeDB = $DBConnection->prepare("SELECT `bike`.`nickname`, `bike`.`mpn`, `bike`.`brand`, `bike`.`model`, `bike`.`type`, `bike`.`wheel_size`, `bike`.`colour`, `bike`.`no_gears`, `bike`.`brake_type`, `bike`.`suspension`, `bike`.`gender`, `bike`.`age` FROM `bike` WHERE `bike`.`id` = ?;");
-                    $bikeDB->bind_param('i', $ID);
-                    $bikeDB->execute();
+                    $DBGetBike = $DBConnection->prepare("SELECT `bike`.`nickname`, `bike`.`mpn`, `bike`.`brand`, `bike`.`model`, `bike`.`type`, `bike`.`wheel_size`, `bike`.`colour`, `bike`.`no_gears`, `bike`.`brake_type`, `bike`.`suspension`, `bike`.`gender`, `bike`.`age` FROM `bike` WHERE `bike`.`id` = ?;");
+                    $DBGetBike->bind_param('i', $ID);
+                    $DBGetBike->execute();
 
-                    $result = $bikeDB->get_result();
+                    $result = $DBGetBike->get_result();
                     $bike = $result->fetch_assoc();
 
-                    $numberOfBikeImagesDB = $DBConnection->prepare("SELECT COUNT(*) FROM `bike_image` INNER JOIN `bike` ON `bike_image`.`bike` = `bike`.`id` WHERE `bike`.`id` = ?");
-                    $numberOfBikeImagesDB->bind_param('i', $ID);
-                    $numberOfBikeImagesDB->execute();
+                    $DBGetNumberOfBikeImages = $DBConnection->prepare("SELECT COUNT(*) FROM `bike_image` INNER JOIN `bike` ON `bike_image`.`bike` = `bike`.`id` WHERE `bike`.`id` = ?");
+                    $DBGetNumberOfBikeImages->bind_param('i', $ID);
+                    $DBGetNumberOfBikeImages->execute();
 
-                    $result = $numberOfBikeImagesDB->get_result();
+                    $result = $DBGetNumberOfBikeImages->get_result();
                     $numberOfImages = $result->fetch_assoc()["COUNT(*)"];
 
-                    $bikeImagesDB = $DBConnection->prepare("SELECT `bike_image`.`image` FROM `bike_image` INNER JOIN `bike` ON `bike_image`.`bike` = `bike`.`id` WHERE `bike`.`id` = ?");
-                    $bikeImagesDB->bind_param('i', $ID);
-                    $bikeImagesDB->execute();
+                    $DBGetBikeImages = $DBConnection->prepare("SELECT `bike_image`.`image` FROM `bike_image` INNER JOIN `bike` ON `bike_image`.`bike` = `bike`.`id` WHERE `bike`.`id` = ?");
+                    $DBGetBikeImages->bind_param('i', $ID);
+                    $DBGetBikeImages->execute();
 
-                    $bikeImages = $bikeImagesDB->get_result();
+                    $bikeImages = $DBGetBikeImages->get_result();
 
                     include("bike.php");
                 } elseif ($type == 'crime') {
-                    $userDB = $DBConnection->prepare("SELECT `user`.`title`, `user`.`first_name`, `user`.`last_name`, `user`.`dob`, `user`.`gender`, `user`.`ethnicity`, `user`.`address_line_1`, `user`.`address_line_2`, `user`.`local_authority`, `user`.`town`, `user`.`postcode`, `user`.`mobile_number`, `user`.`email_address` FROM `crime` INNER JOIN `bike`ON `bike`.`id` = `crime`.`bike` INNER JOIN `user` ON `user`.`id` = `bike`.`user` WHERE `crime`.`id` = ?;");
-                    $userDB->bind_param('i', $ID);
-                    $userDB->execute();
+                    $DBGetUser = $DBConnection->prepare("SELECT `user`.`title`, `user`.`first_name`, `user`.`last_name`, `user`.`dob`, `user`.`gender`, `user`.`ethnicity`, `user`.`address_line_1`, `user`.`address_line_2`, `user`.`local_authority`, `user`.`town`, `user`.`postcode`, `user`.`mobile_number`, `user`.`email_address` FROM `crime` INNER JOIN `bike`ON `bike`.`id` = `crime`.`bike` INNER JOIN `user` ON `user`.`id` = `bike`.`user` WHERE `crime`.`id` = ?;");
+                    $DBGetUser->bind_param('i', $ID);
+                    $DBGetUser->execute();
 
-                    $result = $userDB->get_result();
+                    $result = $DBGetUser->get_result();
                     $victim = $result->fetch_assoc();
 
-                    $bikeDB = $DBConnection->prepare("SELECT `bike`.`nickname`, `bike`.`mpn`, `bike`.`brand`, `bike`.`model`, `bike`.`type`, `bike`.`wheel_size`, `bike`.`colour`, `bike`.`no_gears`, `bike`.`brake_type`, `bike`.`suspension`, `bike`.`gender`, `bike`.`age` FROM `crime` INNER JOIN `bike`ON `bike`.`id` = `crime`.`bike` WHERE `crime`.`id` = ?;");
-                    $bikeDB->bind_param('i', $ID);
-                    $bikeDB->execute();
+                    $DBGetBike = $DBConnection->prepare("SELECT `bike`.`nickname`, `bike`.`mpn`, `bike`.`brand`, `bike`.`model`, `bike`.`type`, `bike`.`wheel_size`, `bike`.`colour`, `bike`.`no_gears`, `bike`.`brake_type`, `bike`.`suspension`, `bike`.`gender`, `bike`.`age` FROM `crime` INNER JOIN `bike`ON `bike`.`id` = `crime`.`bike` WHERE `crime`.`id` = ?;");
+                    $DBGetBike->bind_param('i', $ID);
+                    $DBGetBike->execute();
 
-                    $result = $bikeDB->get_result();
+                    $result = $DBGetBike->get_result();
                     $bike = $result->fetch_assoc();
 
-                    $numberOfBikeImagesDB = $DBConnection->prepare("SELECT COUNT(*) FROM `bike_image` INNER JOIN `crime` ON `bike_image`.`bike` = `crime`.`bike` WHERE `crime`.`id` = ?");
-                    $numberOfBikeImagesDB->bind_param('i', $ID);
-                    $numberOfBikeImagesDB->execute();
+                    $DBGetNumberOfBikeImages = $DBConnection->prepare("SELECT COUNT(*) FROM `bike_image` INNER JOIN `crime` ON `bike_image`.`bike` = `crime`.`bike` WHERE `crime`.`id` = ?");
+                    $DBGetNumberOfBikeImages->bind_param('i', $ID);
+                    $DBGetNumberOfBikeImages->execute();
 
-                    $result = $numberOfBikeImagesDB->get_result();
+                    $result = $DBGetNumberOfBikeImages->get_result();
                     $numberOfImages = $result->fetch_assoc()["COUNT(*)"];
 
-                    $bikeImagesDB = $DBConnection->prepare("SELECT `bike_image`.`image` FROM `bike_image` INNER JOIN `crime` ON `bike_image`.`bike` = `crime`.`bike` WHERE `crime`.`id` = ?");
-                    $bikeImagesDB->bind_param('i', $ID);
-                    $bikeImagesDB->execute();
+                    $DBGetBikeImages = $DBConnection->prepare("SELECT `bike_image`.`image` FROM `bike_image` INNER JOIN `crime` ON `bike_image`.`bike` = `crime`.`bike` WHERE `crime`.`id` = ?");
+                    $DBGetBikeImages->bind_param('i', $ID);
+                    $DBGetBikeImages->execute();
 
-                    $bikeImages = $bikeImagesDB->get_result();
+                    $bikeImages = $DBGetBikeImages->get_result();
 
-                    $crimeDB = $DBConnection->prepare("SELECT * FROM `crime` WHERE `crime`.`id` = ?");
-                    $crimeDB->bind_param('i', $ID);
-                    $crimeDB->execute();
+                    $DBGetCrime = $DBConnection->prepare("SELECT * FROM `crime` WHERE `crime`.`id` = ?");
+                    $DBGetCrime->bind_param('i', $ID);
+                    $DBGetCrime->execute();
 
-                    $result = $crimeDB->get_result();
+                    $result = $DBGetCrime->get_result();
                     $crime = $result->fetch_assoc();
 
-                    $commentsDB = $DBConnection->prepare("SELECT `user`.`role`, `user`.`title`, `user`.`first_name`, `user`.`last_name`, `comment`.`comment` FROM `comment` INNER JOIN `user` ON `user`.`id` = `comment`.`author` WHERE `comment`.`crime` = ?");
-                    $commentsDB->bind_param('i', $ID);
-                    $commentsDB->execute();
+                    $DBGetComments = $DBConnection->prepare("SELECT `user`.`role`, `user`.`title`, `user`.`first_name`, `user`.`last_name`, `comment`.`comment` FROM `comment` INNER JOIN `user` ON `user`.`id` = `comment`.`author` WHERE `comment`.`crime` = ?");
+                    $DBGetComments->bind_param('i', $ID);
+                    $DBGetComments->execute();
 
-                    $comments = $commentsDB->get_result();
+                    $comments = $DBGetComments->get_result();
 
                     include("crime.php");
                 }
